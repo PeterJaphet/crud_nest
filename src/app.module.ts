@@ -6,6 +6,7 @@ import { User } from './typeorm/entities/User';
 import { UsersModule } from './users/users.module';
 import { ProductModule } from './product/product.module';
 import { Product } from './typeorm/entities/Product';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { Product } from './typeorm/entities/Product';
     }),
     UsersModule,
     ProductModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -8,6 +8,11 @@ export type UpdateUserParams = {
   password: string;
 };
 
+export type loginUser = {
+  username: string;
+  password: string;
+};
+
 export type CreateProductParams = {
   name: string;
   description?: string | null;
