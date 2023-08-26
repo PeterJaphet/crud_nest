@@ -1,9 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
+import { BaseModel } from './Base.model';
+import { Role } from 'src/enum/userEnum';
+import { Product } from './Product';
 
 @Entity({ name: 'user' })
-export class User {
-  @PrimaryGeneratedColumn({ type: 'bigint' })
-  id: number;
+export class User extends BaseModel {
+  @OneToMany(() => Product, (product) => product.user)
+  product: [Product];
 
   @Column({ unique: true })
   username: string;
@@ -11,9 +14,6 @@ export class User {
   @Column()
   password: string;
 
-  @Column({ type: 'enum', enum: Role, default: Role.USER })
+  @Column({ default: Role.USER })
   role: string;
-
-  @Column()
-  createdAt: Date;
 }

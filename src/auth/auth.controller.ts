@@ -2,19 +2,26 @@ import {
   Body,
   Controller,
   Post,
-  UseGuards,
   HttpStatus,
   HttpException,
+  HttpCode,
 } from '@nestjs/common';
 import { LoginUserDto } from './LoginUser.dto';
-import { LocalAuthGuard } from './local-auth.gaurd';
 import { AuthService } from './auth.service';
+import { ApiTags, ApiOkResponse } from '@nestjs/swagger';
+import { LoginUserResponseType } from 'src/swagger/user.swagger';
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
-  @UseGuards(LocalAuthGuard)
+
   @Post('login')
+  @ApiOkResponse({
+    status: 200,
+    type: LoginUserResponseType,
+  })
+  @HttpCode(HttpStatus.OK)
   async loginUser(@Body() loginUserDto: LoginUserDto) {
     try {
       const userWithToken = await this.authService.validateUser(loginUserDto);

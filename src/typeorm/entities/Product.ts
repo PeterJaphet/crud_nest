@@ -1,10 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
+import { BaseModel } from './Base.model';
+import { User } from './User';
 
 @Entity({ name: 'product' })
-export class Product {
-  @PrimaryGeneratedColumn({ type: 'bigint' })
-  id: number;
-
+export class Product extends BaseModel {
   @Column()
   name: string;
 
@@ -14,9 +13,6 @@ export class Product {
   @Column()
   price: number;
 
-  @Column()
-  createdAt: Date;
-
-  @Column()
-  updatedAt: Date;
+  @ManyToOne(() => User, (user) => user.product)
+  user: User;
 }
